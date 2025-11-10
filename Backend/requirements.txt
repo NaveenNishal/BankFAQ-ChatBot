@@ -1,0 +1,8 @@
+pandas
+sentence-transformers
+transformers[torch]
+faiss-cpu
+torch
+scikit-learn
+python-dotenv
+requests

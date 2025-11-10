@@ -1,0 +1,109 @@
+<div class="chat-container banking-card p-0">
+  <!-- Chat Header -->
+  <div class="chat-header p-3 border-bottom">
+    <div class="d-flex align-items-center">
+      <div class="status-indicator bg-success rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+      <h5 class="mb-0">{{ getTranslation('header.title') }}</h5>
+      
+      <!-- Language Selector -->
+      <div class="language-selector ms-auto me-2">
+        <select class="form-select form-select-sm" 
+                [(ngModel)]="currentLanguage" 
+                (change)="changeLanguage($event)">
+          <option *ngFor="let lang of Object.keys(supportedLanguages)" 
+                  [value]="lang">
+            {{ supportedLanguages[lang] }}
+          </option>
+        </select>
+      </div>
+      
+      <span class="badge bg-primary">Online</span>
+    </div>
+  </div>
+
+  <!-- Messages Container -->
+  <div #messagesContainer class="messages-container p-3" style="height: 500px; overflow-y: auto;">
+    <div *ngFor="let message of messages" class="message-wrapper mb-3">
+      
+      <!-- User Message -->
+      <div *ngIf="message.isUser" class="d-flex justify-content-end">
+        <div class="message-bubble message-user">
+          <div style="white-space: pre-wrap;">{{ message.content }}</div>
+          <div class="message-time text-end mt-1">
+            <small class="opacity-75">{{ message.timestamp }}</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bot Message -->
+      <div *ngIf="!message.isUser" class="d-flex justify-content-start">
+        <div class="message-bubble" 
+             [class.message-bot]="!message.escalated"
+             [class.message-escalated]="message.escalated">
+          
+          <!-- Escalation Alert -->
+          <div *ngIf="message.escalation" class="escalation-alert mb-2" 
+               [class]="getEscalationClass(message.escalationLevel)">
+            <i class="bi bi-exclamation-triangle-fill me-1"></i>
+            <small *ngIf="message.escalationLevel === 'high'">High priority - Human assistance recommended</small>
+            <small *ngIf="message.escalationLevel === 'medium'">Medium priority - Consider human assistance</small>
+            <small *ngIf="message.escalationLevel === 'low'">Handled by AI assistant</small>
+          </div>
+
+          <div style="white-space: pre-wrap;">{{ message.content }}</div>
+
+          <!-- Language Indicator -->
+          <div *ngIf="message.language && message.language !== 'en'" class="language-indicator mt-2">
+            <small class="text-muted">
+              <i class="bi bi-translate me-1"></i>
+              {{ supportedLanguages[message.language] || message.language }}
+            </small>
+          </div>
+
+          <div class="message-time mt-1">
+            <small class="text-muted">{{ message.timestamp }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div *ngIf="isTyping" class="typing-indicator">
+      <div class="message-bubble message-bot">
+        <div class="typing-dots">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+        <small class="text-muted ms-2">{{ getTranslation('chat.typing') }}</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-input border-top p-3">
+    <div class="input-group">
+      <textarea 
+        class="form-control" 
+        [placeholder]="getTranslation('chat.placeholder')"
+        [(ngModel)]="currentMessage"
+        (keypress)="onKeyPress($event)"
+        [disabled]="isTyping"
+        rows="2"
+        style="resize: none;">
+      </textarea>
+      <button 
+        class="btn btn-banking-primary" 
+        type="button"
+        (click)="sendMessage()"
+        [disabled]="!currentMessage.trim() || isTyping"
+        [title]="getTranslation('chat.send')">
+        <i class="bi bi-send-fill"></i>
+      </button>
+    </div>
+    <small class="text-muted mt-1 d-block">
+      <i class="bi bi-shield-check me-1"></i>
+      Your conversations are encrypted and monitored for security
+    </small>
+  </div>
+</div>

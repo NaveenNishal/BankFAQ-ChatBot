@@ -1,0 +1,37 @@
+{
+  "name": "banking-chatbot-ui",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "ng serve --port 4200 --open",
+    "build:prod": "ng build --configuration production --optimization",
+    "build:dev": "ng build --configuration development",
+    "preview": "ng serve --configuration production --port 4201",
+    "analyze": "ng build --stats-json && npx webpack-bundle-analyzer dist/banking-chatbot-ui/stats.json",
+    "lint": "ng lint --fix",
+    "test": "ng test --watch=false --browsers=ChromeHeadless",
+    "test:watch": "ng test",
+    "format": "prettier --write 'src/**/*.{ts,html,scss,json}'"
+  },
+  "dependencies": {
+    "@angular/animations": "^17.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/forms": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@angular/router": "^17.0.0",
+    "bootstrap": "5.3.0",
+    "bootstrap-icons": "1.11.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.0.0",
+    "@angular/cli": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.0",
+    "@types/jasmine": "~4.3.0",
+    "typescript": "~5.2.0"
+  }
+}

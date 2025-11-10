@@ -1,0 +1,11 @@
+# Environment
+.env
+
+# Angular cache
+frontend/.angular/cache/
+
+# Node dependencies
+node_modules/
+
+# Build output
+dist/
