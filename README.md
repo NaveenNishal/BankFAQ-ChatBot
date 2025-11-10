@@ -20,11 +20,7 @@ A multilingual banking chatbot with AI-powered FAQ responses using sentence tran
 - Pandas
 
 **Frontend:**
-<<<<<<< HEAD
 - Angular 20
-=======
-- Angular 17
->>>>>>> 0bc007994245708bed5e88134a6c7b6d61753aad
 - Bootstrap 5.3
 - TypeScript
 
